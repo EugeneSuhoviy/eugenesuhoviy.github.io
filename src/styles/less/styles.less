@@ -1,0 +1,236 @@
+
+
+// colors
+@color_1: #f46f26;
+@color_2: #626366;
+@color_3: #6e6e70;
+@color_4: #313035; //body black
+@color_5: #676056; //body gray
+@color_6: #fde4d7; //selection
+
+// typography
+
+// fonts
+@font-family-default: 'OpenSans-Regular', SansSerif;
+@font-family-secondary: 'Futura-Medium', SansSerif;
+
+
+
+@font-face {
+  font-family: "OpenSans-Regular";
+  src: url('/src/fonts/OpenSans-Regular.ttf');
+}
+
+@font-face {
+  font-family: "OpenSans-Light";
+  src: url('/src/fonts/OpenSans-Light.ttf');
+}
+
+@font-face {
+  font-family: "Futura-Medium";
+  src: url('/src/fonts/FuturaCondensed-Medium.ttf');
+}
+
+
+img {
+  position: absolute;
+  right: 0;
+  width: 50px;
+  top: 85px;
+}
+
+h2 {
+  background: @color_1;
+  display: inline-block;
+  color: white;
+  padding: 0 5px;
+  font-weight: bold;
+
+  font-family: @font-family-secondary;
+}
+
+.link {
+  color: @color_1;
+}
+
+body {
+  margin-top: 0;
+}
+
+::-moz-selection {
+  background: @color_6
+}
+
+::selection {
+  background: @color_6;
+}
+
+.header {
+  text-align: center;
+  border-top: 5px solid @color_1;
+  //margin-top: 50px;
+
+  &__button-download {
+    border-top: 5px solid #f46f26;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+    top: 0;
+  }
+
+  &__link-download {
+    display: block;
+    width: 100px;
+    background: @color_1;
+    color: white;
+    padding: 10px 0;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    text-transform: uppercase;
+    margin: 0 auto;
+    font-family: @font-family-secondary;
+    cursor: pointer;
+    text-decoration: none;
+    -webkit-transition: padding 0.2s ease-out 0s;
+    -moz-transition: padding 0.2s ease-out 0s;
+    -o-transition: padding 0.2s ease-out 0s;
+    transition: padding 0.2s ease-out 0s;
+
+    &:hover {
+      padding: 20px 0 10px 0;
+    }
+  }
+
+  &__inner {
+    //width: 50%;
+    max-width: 768px;
+    margin: 0 auto;
+    border-bottom: 1px solid @color_2;
+    //border-top: 1px solid @color_1;
+  }
+
+  &__title {
+    font-family: @font-family-secondary;
+    font-size: 48px;
+    margin-bottom: 0;
+    margin-top: 50px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: @color_4;
+  }
+
+  &__subtitle {
+    font-family: @font-family-default;
+    margin-top: 0;
+    color: @color_2;
+
+    &_link {
+      color: @color_1;
+    }
+  }
+}
+
+.container {
+  //max-width: 960px;
+  max-width: 768px;
+  margin-left: auto;
+  margin-right: auto;
+  border-bottom: 1px solid @color_2;
+
+  .content {
+    position: relative;
+    margin-bottom: 30px;
+
+    &__title {
+      margin-bottom: 10px;
+
+      &_exp {
+        margin-bottom: 17px;
+      }
+    }
+
+    &__subtitle {
+      padding-left: 15px;
+      font-weight: bold;
+    }
+
+    &__list {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 5px;
+      margin-bottom: 20px;
+    }
+
+    &__item {
+      font-family: @font-family-default;
+      font-size: 14px;
+      color: @color_5;
+
+      &:before {
+        content: '';
+        display: inline-block;
+        width: 5px;
+        height: 5px;
+        background-color: @color_1;
+        margin-right: 10px;
+      }
+    }
+
+    .co-info {
+      display: flex;
+      justify-content: space-between;
+      font-family: @font-family-secondary;
+      color: @color_4;
+
+      &__name {
+        //float: left;
+        //text-transform: uppercase;
+        font-weight: 100;
+      }
+
+      &__date {
+        //float: left;
+        font-size: 20px;
+      }
+
+      &__position {
+        text-transform: uppercase;
+        font-size: 20px;
+      }
+    }
+  }
+}
+
+.footer {
+  margin-bottom: 30px;
+
+  &__inner {
+    max-width: 768px;
+    margin: 0 auto;
+    margin-top: 20px;
+  }
+
+  .contact {
+    display: flex;
+    justify-content: space-around;
+
+    &__block {
+      display: flex;
+    }
+
+    &__icon {
+      font-size: 20px;
+      margin-right: 5px;
+      color: @color_1;
+    }
+
+    &__text {
+      font-family: @font-family-secondary;
+      color: @color_4;
+
+      a {
+        color: @color_4;
+      }
+    }
+  }
+}
