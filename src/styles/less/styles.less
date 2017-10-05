@@ -54,7 +54,8 @@ h2 {
 }
 
 body {
-  margin: 0;
+  margin: 8px;
+
 }
 
 ::-moz-selection {
@@ -76,6 +77,8 @@ body {
     width: 100%;
     z-index: 1;
     top: 0;
+    margin-left: -8px;
+    margin-right: -8px;
   }
 
   &__link-download {
@@ -234,3 +237,77 @@ body {
     }
   }
 }
+
+// mobile
+@media screen and (max-width: 640px) {
+  h2 {
+    font-size: 18px;
+  }
+
+  .header {
+    &__title {
+      font-size: 36px;
+    }
+
+    &__subtitle {
+      font-size: 12px;
+    }
+
+    &__link-download {
+      font-size: 14px;
+    }
+  }
+}
+
+.container {
+  .content {
+    &__item {
+      font-size: 12px;
+    }
+
+    .co-info {
+      &__date {
+        font-size: 16px;
+      }
+
+      &__position {
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+.footer {
+  .contact__text {
+    font-size: 14px;
+  }
+}
+
+
+// desktop
+@media screen and (min-width: 641px) {
+  .container {
+    .content {
+      &__item {
+        font-size: 14px;
+      }
+
+      .co-info {
+        &__date {
+          font-size: 20px;
+        }
+
+        &__position {
+          font-size: 20px;
+        }
+      }
+    }
+  }
+
+  .footer {
+    .contact__text {
+      font-size: 16px;
+    }
+  }
+}
+
