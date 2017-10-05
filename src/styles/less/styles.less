@@ -278,8 +278,16 @@ body {
 }
 
 .footer {
-  .contact__text {
-    font-size: 14px;
+  .contact {
+    flex-direction: column;
+
+    .contact__text {
+      font-size: 14px;
+    }
+
+    .contact__block {
+      margin-bottom: 10px;
+    }
   }
 }
 
@@ -305,9 +313,15 @@ body {
   }
 
   .footer {
-    .contact__text {
-      font-size: 16px;
+    .contact {
+      flex-direction: row;
+      .contact__text {
+        font-size: 16px;
+      }
+
+      .contact__block {
+        margin-bottom: 0;
+      }
     }
   }
 }
-
