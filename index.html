@@ -1,156 +1,1308 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>EugeneSuhoviy</title>
-    <link rel="stylesheet" type="text/css" href="src/assets/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="src/styles/css/styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Eugene Suhoviy — Senior Frontend Engineer</title>
+  <meta name="description" content="Senior Frontend Engineer with 11+ years of experience in React, Next.js, and headless eCommerce. Specialized in Magento 2, Shopify, and Contentful storefronts." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #0e0a06;
+      --bg-2:       #160f07;
+      --bg-3:       #1d1408;
+      --border:     rgba(255,255,255,0.06);
+      --text:       #f0f2fa;
+      --text-2:     #a0aabb;
+      --text-3:     #6a738a;
+      --accent:     #f0a030;
+      --accent-dim: rgba(240,160,48,0.10);
+      --accent-glow:rgba(240,160,48,0.22);
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-body:    'DM Sans', sans-serif;
+      --font-mono:    'DM Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 17px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* NOISE */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 9998; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.028;
+    }
+
+    /* CUSTOM CURSOR */
+    #cursor-dot, #cursor-ring { display: none; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 22px 48px;
+      padding-top: max(22px, env(safe-area-inset-top));
+      display: flex; justify-content: space-between; align-items: center;
+      transition: background 0.4s, border-color 0.4s;
+      border-bottom: 1px solid transparent;
+    }
+    nav.scrolled {
+      background: rgba(7,9,14,0.92);
+      backdrop-filter: blur(20px);
+      border-bottom-color: var(--border);
+    }
+    .nav-logo {
+      font-family: var(--font-display); font-size: 20px; letter-spacing: 0.08em;
+      color: var(--text); text-decoration: none;
+      display: inline-flex; align-items: center;
+    }
+    .logo-v { display: inline-flex; align-items: center; gap: 8px; }
+    .logo-dot { color: var(--accent); }
+
+    @keyframes drawStroke { to { stroke-dashoffset: 0; } }
+    .logo-bracket-svg { overflow: visible; }
+    .br-left  { stroke-dasharray: 56; stroke-dashoffset: 56; }
+    .br-e     { stroke-dasharray: 80; stroke-dashoffset: 80; }
+    .br-s     { stroke-dasharray: 120; stroke-dashoffset: 120; }
+    .br-right { stroke-dasharray: 56; stroke-dashoffset: 56; }
+    .logo-bracket-svg.animate .br-left  { animation: drawStroke 0.5s 0.0s cubic-bezier(.4,0,.2,1) forwards; }
+    .logo-bracket-svg.animate .br-e     { animation: drawStroke 0.6s 0.3s cubic-bezier(.4,0,.2,1) forwards; }
+    .logo-bracket-svg.animate .br-s     { animation: drawStroke 0.7s 0.6s cubic-bezier(.4,0,.2,1) forwards; }
+    .logo-bracket-svg.animate .br-right { animation: drawStroke 0.5s 0.9s cubic-bezier(.4,0,.2,1) forwards; }
+
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      font-size: 12px; color: var(--text-3); text-decoration: none;
+      letter-spacing: 0.1em; text-transform: uppercase; font-family: var(--font-mono);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 9px 20px;
+      border: 1px solid var(--accent-glow); border-radius: 4px;
+      color: var(--accent); text-decoration: none;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .nav-cta:hover { background: var(--accent-dim); border-color: var(--accent); }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
+
+    /* GLOWING DIVIDER */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, var(--accent-glow) 30%, var(--accent-glow) 70%, transparent 100%);
+      opacity: 0.6;
+    }
+
+    /* REVEAL ANIMATION */
+    .reveal {
+      opacity: 0; transform: translateY(32px);
+      transition: opacity 0.7s cubic-bezier(.25,.46,.45,.94),
+                  transform 0.7s cubic-bezier(.25,.46,.45,.94);
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    .section-label {
+      font-family: var(--font-mono); font-size: 10px; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent);
+      margin-bottom: 16px; display: flex; align-items: center; gap: 10px;
+    }
+    .section-label::before {
+      content: ''; display: block; width: 20px; height: 1px; background: var(--accent);
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(56px, 7vw, 88px);
+      line-height: 0.95; letter-spacing: 0.02em;
+      color: var(--text); margin-bottom: 20px;
+    }
+    .section-sub { font-size: 15px; color: var(--text-2); max-width: 54ch; line-height: 1.8; }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100vh;
+      padding-top: max(80px, calc(58px + env(safe-area-inset-top)));
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 48px;
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 0;
+      align-items: stretch;
+      min-height: calc(100vh - 80px);
+    }
+    #hero::after {
+      content: '';
+      position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(108deg, transparent 58%, rgba(79,142,247,0.04) 58%);
+    }
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 80px 0;
+      position: relative;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em;
+      color: var(--accent); margin-bottom: 32px;
+      display: flex; align-items: center; gap: 10px;
+      animation: slideDown 0.6s cubic-bezier(.25,.46,.45,.94) both;
+      animation-delay: 0.1s;
+    }
+    .hero-eyebrow::before {
+      content: ''; display: block; width: 28px; height: 1px; background: var(--accent);
+    }
+    .pulse-dot {
+      width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+      display: inline-block;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.6)} }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(80px, 10vw, 148px);
+      line-height: 0.88; letter-spacing: 0.02em;
+      color: var(--text); margin-bottom: 36px;
+      animation: slideUp 0.7s cubic-bezier(.25,.46,.45,.94) both;
+      animation-delay: 0.2s;
+    }
+    h1 .dim { color: var(--text-3); }
+
+    .hero-role {
+      font-size: 15px; color: var(--text-2); margin-bottom: 20px;
+      animation: slideUp 0.7s cubic-bezier(.25,.46,.45,.94) both;
+      animation-delay: 0.3s;
+    }
+    .role-dim { color: var(--text-3); }
+
+    .hero-pitch {
+      font-size: 16px; color: var(--text-2); max-width: 50ch;
+      line-height: 1.8; margin-bottom: 48px;
+      animation: slideUp 0.7s cubic-bezier(.25,.46,.45,.94) both;
+      animation-delay: 0.35s;
+    }
+    .hero-pitch strong { color: var(--text); font-weight: 500; }
+
+    .hero-actions {
+      display: flex; gap: 12px; flex-wrap: wrap;
+      animation: slideUp 0.7s cubic-bezier(.25,.46,.45,.94) both;
+      animation-delay: 0.5s;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 26px; background: var(--accent); color: #fff;
+      border-radius: 6px; font-size: 13px; font-weight: 500; text-decoration: none;
+      font-family: var(--font-mono); letter-spacing: 0.04em;
+      border: none; cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 22px; background: transparent; color: var(--text-2);
+      border-radius: 6px; font-size: 13px; font-weight: 400; text-decoration: none;
+      border: 1px solid var(--border); font-family: var(--font-mono); letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s, transform 0.2s;
+    }
+    .btn-ghost:hover { color: var(--text); border-color: rgba(255,255,255,0.18); transform: translateY(-2px); }
+
+    .hero-right {
+      position: relative; display: flex; align-items: center; justify-content: center;
+      padding: 80px 0 80px 20px;
+      animation: fadeIn 1s cubic-bezier(.25,.46,.45,.94) both;
+      animation-delay: 0.4s;
+    }
+    .hero-photo-frame {
+      position: relative; width: 280px;
+    }
+    .hero-photo {
+      width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: center 15%;
+      border-radius: 4px; display: block;
+      filter: grayscale(60%) contrast(1.1) brightness(0.75);
+    }
+    .hero-photo-frame::before, .hero-photo-frame::after {
+      content: ''; position: absolute; width: 24px; height: 24px;
+      border-color: var(--accent); border-style: solid; border-width: 0;
+    }
+    .hero-photo-frame::before { top: -6px; left: -6px; border-top-width: 1px; border-left-width: 1px; }
+    .hero-photo-frame::after  { bottom: -6px; right: -6px; border-bottom-width: 1px; border-right-width: 1px; }
+    .hero-photo-frame .photo-tint {
+      position: absolute; inset: 0; border-radius: 4px;
+      background: linear-gradient(160deg, rgba(79,142,247,0.15) 0%, rgba(7,9,14,0.35) 100%);
+      pointer-events: none;
+    }
+
+    /* Stats row */
+    .hero-stats {
+      margin-top: 64px; padding-top: 48px;
+      border-top: 1px solid var(--border);
+      display: flex; gap: 56px;
+      animation: slideUp 0.7s cubic-bezier(.25,.46,.45,.94) both;
+      animation-delay: 0.6s;
+    }
+    .stat-num {
+      font-family: var(--font-display); font-size: 58px; line-height: 1;
+      color: var(--text); letter-spacing: 0.02em;
+    }
+    .stat-num .acc { color: var(--accent); }
+    .stat-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--text-3); margin-top: 6px; }
+    .stat-sub { font-size: 12px; color: var(--text-3); margin-top: 5px; line-height: 1.5; max-width: 20ch; }
+
+    @keyframes slideUp   { from { opacity:0; transform:translateY(40px); } to { opacity:1; transform:none; } }
+    @keyframes slideDown { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:none; } }
+    @keyframes fadeIn    { from { opacity:0; } to { opacity:1; } }
+
+    /* ─── ABOUT ─── */
+    #about { padding: 120px 0; }
+    #about > .container { max-width: 900px; }
+
+    .platform-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 2px; margin-bottom: 2px;
+    }
+    .platform-card {
+      background: var(--bg-2); padding: 32px 28px;
+      transition: background 0.2s;
+    }
+    .platform-card:nth-child(1) { border-radius: 12px 0 0 12px; }
+    .platform-card:nth-child(3) { border-radius: 0 12px 12px 0; }
+    .platform-card:hover { background: var(--bg-3); }
+    .platform-abbr {
+      font-family: var(--font-display); font-size: 42px; letter-spacing: 0.04em;
+      color: var(--accent); line-height: 1; margin-bottom: 10px;
+    }
+    .platform-name {
+      font-family: var(--font-display); font-size: 22px; letter-spacing: 0.03em;
+      color: var(--text); margin-bottom: 4px;
+    }
+    .platform-level {
+      font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-3); margin-bottom: 14px;
+    }
+    .platform-desc { font-size: 14px; color: var(--text-2); line-height: 1.8; }
+
+    .about-bottom {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 2px; margin-top: 2px;
+    }
+    .about-certs-col {
+      background: var(--bg-2); padding: 32px 28px;
+      border-radius: 0 0 0 12px;
+    }
+    .about-location-col {
+      background: var(--bg-2); padding: 32px 28px;
+      border-radius: 0 0 12px 0;
+    }
+
+    .about-cert {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 16px 0; border-bottom: 1px solid var(--border);
+    }
+    .cert-icon {
+      width: 34px; height: 34px; flex-shrink: 0; border-radius: 6px;
+      background: var(--accent-dim); border: 1px solid var(--accent-glow);
+      display: flex; align-items: center; justify-content: center; color: var(--accent);
+    }
+    .cert-name { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.3; }
+    .cert-org { font-size: 11px; color: var(--text-3); margin-top: 3px; font-family: var(--font-mono); }
+
+    /* ─── SKILLS ─── */
+    #skills { padding: 120px 0; }
+    .skills-matrix { margin-top: 56px; width: 100%; border-collapse: collapse; }
+    .skills-matrix thead th {
+      font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--text-3); padding: 0 0 16px 0;
+      text-align: left; border-bottom: 1px solid var(--border);
+    }
+    .skills-matrix thead th:first-child { padding-left: 0; width: 160px; }
+    .skills-matrix tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+    .skills-matrix tbody tr:hover { background: rgba(79,142,247,0.03); }
+    .skills-matrix td { padding: 18px 0; vertical-align: middle; }
+    .skills-matrix td:first-child {
+      font-family: var(--font-display); font-size: 22px; letter-spacing: 0.04em;
+      color: var(--text-2); padding-right: 32px; white-space: nowrap;
+    }
+    .skill-row-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .skill-chip {
+      font-family: var(--font-mono); font-size: 11px; padding: 4px 11px;
+      border-radius: 3px; background: var(--bg-3);
+      border: 1px solid var(--border); color: var(--text-3);
+      letter-spacing: 0.04em; transition: color 0.2s, border-color 0.2s;
+    }
+    .skill-chip.hl { color: var(--accent); border-color: var(--accent-glow); background: var(--accent-dim); }
+    .skill-chip:hover { color: var(--text); border-color: rgba(255,255,255,0.16); }
+
+    /* ─── PROJECTS ─── */
+    #projects { padding: 120px 0; }
+    .proj-header { margin-bottom: 48px; }
+    .proj-tabs {
+      display: flex; gap: 0; margin-top: 40px;
+      border-bottom: 1px solid var(--border);
+    }
+    .proj-tab {
+      font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 12px 22px; color: var(--text-3);
+      background: none; border: none; cursor: pointer; border-bottom: 2px solid transparent;
+      margin-bottom: -1px; transition: color 0.2s, border-color 0.2s;
+    }
+    .proj-tab:hover { color: var(--text-2); }
+    .proj-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .proj-panel { display: none; }
+    .proj-panel.active { display: block; }
+
+    .proj-cards { display: grid; gap: 2px; margin-top: 2px; }
+    .proj-cards.cols-2 { grid-template-columns: repeat(2,1fr); }
+    .proj-cards.cols-3 { grid-template-columns: repeat(3,1fr); }
+    .proj-cards.cols-4 { grid-template-columns: repeat(4,1fr); }
+
+    .proj-card {
+      background: var(--bg-2); padding: 34px 28px;
+      position: relative; overflow: hidden;
+      transition: background 0.2s, transform 0.35s cubic-bezier(.25,.46,.45,.94),
+                  box-shadow 0.35s ease;
+      cursor: pointer;
+    }
+    .proj-cards.cols-2 .proj-card:nth-child(1) { border-radius: 12px 0 0 0; }
+    .proj-cards.cols-2 .proj-card:nth-child(2) { border-radius: 0 12px 0 0; }
+    .proj-cards.cols-2 .proj-card:nth-last-child(2) { border-radius: 0 0 0 12px; }
+    .proj-cards.cols-2 .proj-card:last-child  { border-radius: 0 0 12px 0; }
+    .proj-cards.cols-3 .proj-card:nth-child(1) { border-radius: 12px 0 0 0; }
+    .proj-cards.cols-3 .proj-card:nth-child(3) { border-radius: 0 12px 0 0; }
+    .proj-cards.cols-3 .proj-card:nth-last-child(3) { border-radius: 0 0 0 12px; }
+    .proj-cards.cols-3 .proj-card:last-child  { border-radius: 0 0 12px 0; }
+
+    .proj-card::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 2px; background: transparent; transition: background 0.3s;
+    }
+    .proj-card:hover {
+      background: var(--bg-3);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(79,142,247,0.12);
+      z-index: 2;
+    }
+    .proj-card:hover::before { background: var(--accent); }
+
+    .tl-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-family: var(--font-mono); font-size: 9px; padding: 3px 8px;
+      border-radius: 3px; background: var(--accent-dim); color: var(--accent);
+      border: 1px solid var(--accent-glow); letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .proj-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+    .proj-card-label {
+      font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-3);
+    }
+    .proj-card-link { color: var(--text-3); transition: color 0.2s; text-decoration: none; }
+    .proj-card-link:hover { color: var(--accent); }
+    .proj-card-name {
+      font-family: var(--font-display); font-size: 24px; letter-spacing: 0.03em;
+      color: var(--text); margin-bottom: 10px; line-height: 1.1;
+    }
+    .proj-card-desc { font-size: 14px; color: var(--text-2); line-height: 1.8; margin-bottom: 20px; }
+    .proj-card-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .proj-card-tag {
+      font-family: var(--font-mono); font-size: 10px; padding: 3px 9px;
+      border-radius: 3px; background: var(--bg); border: 1px solid var(--border);
+      color: var(--text-2); letter-spacing: 0.04em;
+    }
+    .proj-card-tag.accent-tag { color: var(--accent); border-color: var(--accent-glow); background: var(--accent-dim); }
+
+    /* Accordion */
+    .acc-wrap { overflow: hidden; max-height: 0; transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1); }
+    .acc-wrap.open { max-height: 800px; }
+    .acc-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; margin-top: 2px; }
+    .acc-card {
+      background: var(--bg-2); padding: 20px 22px;
+      display: flex; flex-direction: column; gap: 8px;
+      transition: background 0.2s, opacity 0.35s ease, transform 0.35s ease;
+      opacity: 0; transform: translateY(10px);
+    }
+    .acc-wrap.open .acc-card { opacity: 1; transform: none; }
+    .acc-wrap.open .acc-card:nth-child(1){transition-delay:0.05s}
+    .acc-wrap.open .acc-card:nth-child(2){transition-delay:0.10s}
+    .acc-wrap.open .acc-card:nth-child(3){transition-delay:0.15s}
+    .acc-wrap.open .acc-card:nth-child(4){transition-delay:0.20s}
+    .acc-wrap.open .acc-card:nth-child(5){transition-delay:0.25s}
+    .acc-wrap.open .acc-card:nth-child(6){transition-delay:0.30s}
+    .acc-wrap.open .acc-card:nth-child(7){transition-delay:0.35s}
+    .acc-wrap.open .acc-card:nth-child(8){transition-delay:0.40s}
+    .acc-card:hover { background: var(--bg-3); }
+    .acc-card-name { font-family: var(--font-display); font-size: 17px; letter-spacing: 0.03em; color: var(--text); }
+    .acc-card-stack {
+      font-family: var(--font-mono); font-size: 10px; padding: 3px 9px;
+      border-radius: 3px; background: var(--bg); border: 1px solid var(--border);
+      color: var(--text-3); width: fit-content;
+    }
+    .acc-card-link {
+      font-family: var(--font-mono); font-size: 10px; color: var(--accent); text-decoration: none;
+      display: flex; align-items: center; gap: 4px; margin-top: 2px;
+      transition: opacity 0.2s;
+    }
+    .acc-card-link:hover { opacity: 0.7; }
+    .acc-toggle {
+      display: flex; align-items: center; gap: 10px;
+      font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-3);
+      background: var(--bg-2); border: none; cursor: pointer;
+      padding: 16px 22px; width: 100%; text-align: left;
+      transition: color 0.2s, background 0.2s;
+      border-radius: 0 0 12px 12px; margin-top: 2px;
+    }
+    .acc-toggle:hover { color: var(--text); background: var(--bg-3); }
+    .acc-toggle-icon {
+      width: 16px; height: 16px; border-radius: 50%; border: 1px solid currentColor;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 14px; line-height: 1; flex-shrink: 0;
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+    .acc-toggle.open .acc-toggle-icon { transform: rotate(45deg); }
+
+    /* ─── EXPERIENCE ─── */
+    #experience { padding: 120px 0; }
+    .exp-list { margin-top: 56px; }
+    .exp-item {
+      display: grid; grid-template-columns: 200px 1fr;
+      gap: 48px; padding: 44px 0; border-top: 1px solid var(--border);
+    }
+    .exp-item:last-child { border-bottom: 1px solid var(--border); }
+    .exp-date { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); padding-top: 4px; letter-spacing: 0.04em; }
+    .exp-company { font-family: var(--font-mono); font-size: 11px; color: var(--accent); margin-top: 5px; letter-spacing: 0.06em; }
+    .exp-role {
+      font-family: var(--font-display); font-size: 24px; letter-spacing: 0.03em;
+      color: var(--text); margin-bottom: 16px; line-height: 1.2;
+    }
+    .exp-tl { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.1em; color: var(--accent); display: block; margin-top: 4px; }
+    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .exp-bullets li {
+      font-size: 15px; color: var(--text-2); line-height: 1.8;
+      padding-left: 18px; position: relative;
+    }
+    .exp-bullets li::before { content: '›'; position: absolute; left: 0; color: var(--accent); font-size: 16px; line-height: 1.5; }
+    .exp-bullets strong { color: var(--text); font-weight: 500; }
+
+    /* ─── CONTACT ─── */
+    #contact { padding: 120px 0 140px; }
+    .contact-inner { text-align: center; max-width: 640px; margin: 0 auto; }
+    .contact-inner .section-label { justify-content: center; }
+    .contact-inner .section-title { margin-bottom: 24px; }
+    .contact-inner p { color: var(--text-2); font-size: 16px; line-height: 1.8; margin-bottom: 48px; }
+    .contact-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .social-row { display: flex; gap: 24px; justify-content: center; margin-top: 48px; flex-wrap: wrap; }
+    .social-link {
+      display: flex; align-items: center; gap: 8px; font-size: 12px;
+      color: var(--text-3); text-decoration: none; font-family: var(--font-mono);
+      letter-spacing: 0.06em; transition: color 0.2s;
+    }
+    .social-link:hover { color: var(--text); }
+
+    footer {
+      border-top: 1px solid var(--border); padding: 28px 48px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-text { font-family: var(--font-mono); font-size: 10px; color: var(--text-3); letter-spacing: 0.08em; text-transform: uppercase; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      nav { padding: 18px 28px; }
+      .container { padding: 0 28px; }
+      .hero-container { grid-template-columns: 1fr; padding: 0 28px; }
+      .hero-right { display: none; }
+      .hero-left { padding: 80px 0; }
+      .proj-cards.cols-3 { grid-template-columns: repeat(2,1fr); }
+      .acc-grid { grid-template-columns: repeat(3,1fr); }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .container { padding: 0 20px; }
+      #hero { padding-top: 70px; }
+      .hero-left { padding: 60px 20px; }
+      h1 { font-size: 72px; }
+      .hero-stats { gap: 32px; flex-wrap: wrap; }
+      .stat-num { font-size: 44px; }
+      .platform-grid { grid-template-columns: 1fr; }
+      .platform-card { border-radius: 0 !important; }
+      .platform-card:first-child { border-radius: 12px 12px 0 0 !important; }
+      .about-bottom { grid-template-columns: 1fr; }
+      .about-certs-col { border-radius: 0 !important; }
+      .about-location-col { border-radius: 0 0 12px 12px !important; }
+      .skills-matrix thead th:not(:first-child):not(:last-child) { display: none; }
+      .proj-cards.cols-2, .proj-cards.cols-3 { grid-template-columns: 1fr; }
+      .proj-card:hover { transform: none; }
+      .exp-item { grid-template-columns: 1fr; gap: 14px; }
+      .acc-grid { grid-template-columns: repeat(2,1fr); }
+      footer { flex-direction: column; gap: 10px; text-align: center; padding: 24px 20px; }
+    }
+  </style>
 </head>
 <body>
-<header class="header">
-    <div class="header__button-download">
-        <a class="header__link-download" href="/src/download/suhoviy_eugene.pdf" download>download pdf</a>
-    </div>
-    <div class="header__inner">
-        <h1 class="header__title">Eugene Suhoviy</h1>
-        <blockquote class="header__subtitle">Magento <a target="_blank" class="header__subtitle_link" href="https://u.magento.com/certification/directory/dev/1840354">certified</a> frontend developer. Based in Kyiv</blockquote>
-    </div>
-</header>
 
-<main class="container">
+<nav id="nav">
+  <a href="#hero" class="nav-logo" id="nav-logo-el">
+    <svg class="logo-bracket-svg" width="64" height="30" viewBox="0 0 64 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path class="br-left"  d="M10 4 H4 V26 H10" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <path class="br-e"     d="M17 6 H27 M17 6 V24 M17 15 H24 M17 24 H27" stroke="var(--text)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <path class="br-s"     d="M44 7 C42 6 36 6 36 11 C36 15 44 15 44 20 C44 24 38 25 36 24" stroke="var(--text)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <path class="br-right" d="M54 4 H60 V26 H54" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+  </ul>
+  <a href="mailto:suhoviy.eugene@gmail.com" class="nav-cta">Get in touch</a>
+</nav>
 
-<section class="content">
-    <h2 class="content__title">SKILLS</h2>
-    <img src="src/images/certification.png" alt="">
-    <ul class="content__list">
-        <li class="content__item">JavaScript/AJAX with using jQuery, jQuery Mobile, Angular.js, Require.js, Knockout.js</li>
-        <li class="content__item">HTML/CSS</li>
-        <li class="content__item">JSON/XML</li>
-        <li class="content__item">CSS preprocessor: LESS, SCSS</li>
-        <li class="content__item">CSS methodology: BEM</li>
-        <li class="content__item">CSS frameworks: Bootstrap, Material design</li>
-        <li class="content__item">Task runners: Gulp, Grunt</li>
-        <li class="content__item">Architectural pattern: MVC, MVVM</li>
-        <li class="content__item">Experience in adaptive and cross-browser development</li>
-        <li class="content__item">PHP with ООP and design patterns. Laravel framework</li>
-        <li class="content__item">Environment: Vagrant</li>
-        <li class="content__item">DB: MySQL</li>
-        <li class="content__item">CMS: Magento, Magento 2, Wordpress, Joomla</li>
-        <li class="content__item">Experience in using bug-tracking systems: Jira, Trello, Redmine</li>
-        <li class="content__item">Code management using GIT (Bitbucket, Gitlab, Github)</li>
-        <li class="content__item">Photoshop</li>
-        <li class="content__item">Experience with OS: MacOS, Windows, Linux</li>
-    </ul>
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <div class="hero-container">
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <span class="pulse-dot"></span>
+        Senior Frontend Developer — Kyiv, Ukraine
+      </div>
+      <h1>Eugene<br><span class="dim">Suhoviy</span></h1>
+      <div class="hero-role">Shopify · Magento 2 · React/Next.js · Headless &nbsp;<span class="role-dim">—&nbsp; eCommerce Engineering</span></div>
+      <p class="hero-pitch">11 years turning complex eCommerce into elegant frontends.</p>
+      <div class="hero-actions">
+        <a href="mailto:suhoviy.eugene@gmail.com" class="btn-primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          Contact me
+        </a>
+        <a href="https://linkedin.com/in/eugenesuhoviy" target="_blank" class="btn-ghost">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://t.me/eugenesuhoviy" target="_blank" class="btn-ghost">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+          Telegram
+        </a>
+        <a href="EugeneSuhoviy_cv.pdf" download class="btn-ghost">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" x2="12" y1="18" y2="12"/><line x1="9" x2="15" y1="15" y2="15"/></svg>
+          Download CV
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num" data-count="11"><span class="n">11</span><span class="acc">+</span></div>
+          <div class="stat-label">Years of Experience</div>
+          <div class="stat-sub">Since 2013 — deep roots in eCommerce frontend</div>
+        </div>
+        <div>
+          <div class="stat-num" data-count="60"><span class="n">60</span><span class="acc">+</span></div>
+          <div class="stat-label">Stores Built</div>
+          <div class="stat-sub">Magento, Shopify &amp; headless storefronts</div>
+        </div>
+        <div>
+          <div class="stat-num" data-count="3"><span class="n">3</span></div>
+          <div class="stat-label">Core Platforms</div>
+          <div class="stat-sub">Magento 2 · Shopify · React/Next.js</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-photo-frame">
+        <div class="photo-tint"></div>
+        <img class="hero-photo" src="photo.jpg" alt="Eugene Suhoviy" />
+      </div>
+    </div>
+  </div>
 </section>
 
-<section class="content">
-    <h2 class="content__title content__title_exp">EXPERIENCE</h2>
-    <div class="content__subtitle co-info">
-        <div class="co-info-inner">
-            <div class="co-info__position">Magento frontend developer</div>
-            <div class="co-info__name">Maven eCommerce</div>
-        </div>
-        <div class="co-info__date">Apr 2017 - Sep 2017</div>
-    </div>
-    <ul class="content__list">
-        <li class="content__item">Development Responsive/Adaptive/Mobile Magento Themes</li>
-        <li class="content__item">Magento 2 themes development</li>
-        <li class="content__item">Working with Magento UI library</li>
-        <li class="content__item">Production, modification, and maintenance of user interfaces</li>
-        <li class="content__item">Ensured the technical feasibility of UI/UX designs</li>
-        <li class="content__item">List of projects: <a class="link" target="_blank" href="https://goo.gl/nchpbx">https://goo.gl/nchpbx</a></li>
-    </ul>
+<div class="divider"></div>
 
-    <div class="content__subtitle co-info">
-        <div class="co-info-inner">
-            <div class="co-info__position">Magento frontend developer</div>
-            <div class="co-info__name">Sky Well</div>
-        </div>
-        <div class="co-info__date">Jan 2016 - Mar 2017</div>
+<!-- ═══ ABOUT ═══ -->
+<section id="about">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:56px">
+      <div class="section-label">About</div>
+      <h2 class="section-title" style="font-size:clamp(40px,5vw,64px)">Building the frontend<br>layer of commerce</h2>
     </div>
-    <ul class="content__list">
-        <li class="content__item">Performance optimization</li>
-        <li class="content__item">Development new user-facing features</li>
-        <li class="content__item">Theme development</li>
-        <li class="content__item">List of projects: <a class="link" target="_blank" href="https://goo.gl/MJVkSC">https://goo.gl/MJVkSC</a></li>
-    </ul>
 
-    <div class="content__subtitle co-info">
-        <div class="co-info-inner">
-            <div class="co-info__position">Magento frontend developer</div>
-            <div class="co-info__name">MagePhobia</div>
-        </div>
-        <div class="co-info__date">Jul 2014 - Dec 2016</div>
+    <div class="platform-grid reveal" style="transition-delay:.08s">
+      <div class="platform-card">
+        <div class="platform-abbr">M2</div>
+        <div class="platform-name">Magento 2</div>
+        <div class="platform-level">Senior / Tech Lead level</div>
+        <p class="platform-desc">Custom themes, RequireJS modules, Knockout.js, checkout UI, PWA Studio, performance audits.</p>
+      </div>
+      <div class="platform-card">
+        <div class="platform-abbr">SH</div>
+        <div class="platform-name">Shopify</div>
+        <div class="platform-level">Advanced</div>
+        <p class="platform-desc">Liquid architecture, Storefront API, CLI-based workflows, custom app development.</p>
+      </div>
+      <div class="platform-card">
+        <div class="platform-abbr">RX</div>
+        <div class="platform-name">React / Next.js</div>
+        <div class="platform-level">Senior level</div>
+        <p class="platform-desc">App Router, SSR/SSG, Tailwind CSS, Zustand. Headless commerce as a first-class citizen.</p>
+      </div>
     </div>
-    <ul class="content__list">
-        <li class="content__item">Developing Magento themes</li>
-        <li class="content__item">Supporting web-sites based on the Magento</li>
-        <li class="content__item">Participate in solution discussion, estimation, releases on different environments</li>
-        <li class="content__item">New modules development</li>
-        <li class="content__item">Optimizing web-sites for mobile display</li>
-        <li class="content__item">Build a Magento site from an approved design to a functional storefront</li>
-        <li class="content__item">Optimizing the performance of applications. </li>
-        <li class="content__item">List of projects: <a class="link" target="_blank" href="https://goo.gl/Dvlvs1">https://goo.gl/Dvlvs1</a></li>
-        <li class="content__item">Recommendation letter: <a class="link" target="_blank" href="https://goo.gl/edlGTC">https://goo.gl/edlGTC</a></li>
-    </ul>
 
-
-    <div class="content__subtitle co-info">
-        <div class="co-info-inner">
-            <div class="co-info__position">SFDC Developer</div>
-            <div class="co-info__name">Customer Times</div>
+    <div class="about-bottom reveal" style="transition-delay:.16s">
+      <div class="about-certs-col">
+        <div class="section-label" style="margin-bottom:20px">Certifications</div>
+        <div class="about-cert">
+          <div class="cert-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <div>
+            <div class="cert-name">Adobe Certified Expert</div>
+            <div class="cert-org">Magento Commerce Frontend Developer</div>
+          </div>
         </div>
-        <div class="co-info__date">Mar 2014 - May 2014</div>
-    </div>
-    <ul class="content__list">
-        <li class="content__item">SalesForce development, research, support</li>
-    </ul>
-
-    <div class="content__subtitle co-info">
-        <div class="co-info-inner">
-            <div class="co-info__position">PHP Developer</div>
-            <div class="co-info__name">Freelance</div>
+        <div class="about-cert">
+          <div class="cert-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <div>
+            <div class="cert-name">Contentful Certified Professional</div>
+            <div class="cert-org">Contentful</div>
+          </div>
         </div>
-        <div class="co-info__date">Apr 2013 - Feb 2014</div>
+        <div class="about-cert" style="border-bottom:none">
+          <div class="cert-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          </div>
+          <div>
+            <div class="cert-name">English — Upper-Intermediate (B2)</div>
+            <div class="cert-org">Yappi Language School</div>
+          </div>
+        </div>
+      </div>
+      <div class="about-location-col">
+        <div class="section-label" style="margin-bottom:20px">Location</div>
+        <div style="font-family:var(--font-display);font-size:32px;letter-spacing:0.03em;color:var(--text);line-height:1.1;margin-bottom:12px">Kyiv, Ukraine</div>
+        <div style="font-size:14px;color:var(--text-2);line-height:1.8">Remote-first, async-friendly,<br>EU timezone overlap.</div>
+        <div style="margin-top:24px;padding:18px 22px;background:var(--bg-2);border-radius:6px;border:1px solid var(--border)">
+          <div style="font-family:var(--font-display);font-size:18px;letter-spacing:.03em;color:var(--text);margin-bottom:4px">B.S. Telecommunications</div>
+          <div style="font-size:11px;color:var(--text-3);font-family:var(--font-mono)">State University of Telecommunications · 2006–2012</div>
+        </div>
+      </div>
     </div>
+  </div>
 </section>
 
-<section class="content">
-    <h2 class="content__title">LANGUAGES</h2>
-    <ul class="content__list">
-        <li class="content__item">English – Intermediate.</li>
-        <li class="content__item">Russian, Ukrainian – Fluent.</li>
-    </ul>
+<div class="divider"></div>
+
+<!-- ═══ SKILLS ═══ -->
+<section id="skills">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Technical skills</div>
+      <h2 class="section-title">The stack I work with</h2>
+      <p class="section-sub">Highlighted entries are core to my day-to-day work and depth of expertise.</p>
+    </div>
+    <table class="skills-matrix reveal" style="transition-delay:.1s">
+      <thead>
+        <tr>
+          <th>Discipline</th>
+          <th>Technologies</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Core Stack</td>
+          <td><div class="skill-row-tags">
+            <span class="skill-chip hl">React.js</span>
+            <span class="skill-chip hl">Next.js</span>
+            <span class="skill-chip hl">TypeScript</span>
+            <span class="skill-chip hl">JavaScript ES6+</span>
+            <span class="skill-chip hl">GraphQL</span>
+            <span class="skill-chip">Vue.js</span>
+            <span class="skill-chip">Nuxt.js</span>
+          </div></td>
+        </tr>
+        <tr>
+          <td>Styling &amp; UI</td>
+          <td><div class="skill-row-tags">
+            <span class="skill-chip hl">Tailwind CSS</span>
+            <span class="skill-chip">SCSS / LESS</span>
+            <span class="skill-chip hl">WCAG / a11y</span>
+            <span class="skill-chip">Responsive Design</span>
+            <span class="skill-chip">Figma</span>
+          </div></td>
+        </tr>
+        <tr>
+          <td>eCommerce</td>
+          <td><div class="skill-row-tags">
+            <span class="skill-chip hl">Magento 2 Headless</span>
+            <span class="skill-chip hl">Hyvä Theme</span>
+            <span class="skill-chip hl">Shopify</span>
+            <span class="skill-chip">Shopify Liquid</span>
+            <span class="skill-chip hl">Contentful</span>
+            <span class="skill-chip">Hygraph</span>
+          </div></td>
+        </tr>
+        <tr>
+          <td>Performance</td>
+          <td><div class="skill-row-tags">
+            <span class="skill-chip hl">Core Web Vitals</span>
+            <span class="skill-chip">Lighthouse</span>
+            <span class="skill-chip">SEO</span>
+            <span class="skill-chip">Zustand</span>
+            <span class="skill-chip">REST APIs</span>
+            <span class="skill-chip">Git / CI-CD</span>
+          </div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </section>
 
-</main>
+<div class="divider"></div>
 
-
-<footer class="footer">
-    <div class="footer__inner contact">
-        <div class="contact__block contact__block_email">
-            <i class="contact__icon fa fa-envelope" aria-hidden="true"></i>
-            <div class="contact__text"><a href="mailto:suhoviy.eugene@gmail.com">suhoviy.eugene@gmail.com</a></div>
-        </div>
-        <div class="contact__block contact__block_phone">
-            <i class="contact__icon fa fa-phone" aria-hidden="true"></i>
-            <div class="contact__text"><a href="tel:+380634405687">+38 063 440 56 87</a></div>
-        </div>
-        <div class="contact__block contact__block_skype">
-            <i class="contact__icon fa fa-skype" aria-hidden="true"></i>
-            <div class="contact__text"><a href="skype:sinner-888">sinner-888</a></div>
-        </div>
-        <div class="contact__block contact__block_linkedin">
-            <i class="contact__icon fa fa-linkedin-square" aria-hidden="true"></i>
-            <div class="contact__text"><a target="_blank" href="https://www.linkedin.com/in/suhoviyeugene">suhoviy-eugene</a></div>
-        </div>
+<!-- ═══ PROJECTS ═══ -->
+<section id="projects">
+  <div class="container">
+    <div class="proj-header reveal">
+      <div class="section-label">Projects</div>
+      <h2 class="section-title">Production work</h2>
+      <p class="section-sub">60+ stores delivered across React/Next.js, Magento 2, Shopify, and Vue stacks.</p>
+      <div class="proj-tabs">
+        <button class="proj-tab active" data-panel="react">React / Next.js</button>
+        <button class="proj-tab" data-panel="magento">Magento 2</button>
+        <button class="proj-tab" data-panel="shopify">Shopify</button>
+        <button class="proj-tab" data-panel="vue">Vue / Nuxt</button>
+      </div>
     </div>
+
+    <!-- React / Next.js -->
+    <div class="proj-panel active reveal" id="panel-react">
+      <div class="proj-cards cols-2">
+        <div class="proj-card">
+          <div class="proj-card-top">
+            <span class="proj-card-label">Headless Migration</span>
+            <a href="https://www.petbarn.com.au/" target="_blank" class="proj-card-link">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+            </a>
+          </div>
+          <div class="proj-card-name">Petbarn / Greencross</div>
+          <p class="proj-card-desc">Redesigned and migrated a large-scale Magento 2 storefront to Next.js. Focused on speed, scalability, and delivering a modern platform ready for business growth. One of Australia's largest pet retailers.</p>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag accent-tag">React</span>
+            <span class="proj-card-tag accent-tag">Next.js</span>
+            <span class="proj-card-tag">Magento 2</span>
+            <span class="proj-card-tag">GraphQL</span>
+            <span class="proj-card-tag">TypeScript</span>
+          </div>
+        </div>
+        <div class="proj-card">
+          <div class="proj-card-top">
+            <span class="proj-card-label">Performance Frontend</span>
+            <a href="https://cardrona-treblecone.com/" target="_blank" class="proj-card-link">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+            </a>
+          </div>
+          <div class="proj-card-name">RealNZ — Cardrona &amp; Treble Cone</div>
+          <p class="proj-card-desc">Worked on a performance-focused frontend for New Zealand's iconic ski resort brands. Built using modern React patterns with a focus on Core Web Vitals and responsive UX for high-traffic seasonal peaks.</p>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag accent-tag">React</span>
+            <span class="proj-card-tag">Next.js</span>
+            <span class="proj-card-tag">TypeScript</span>
+            <span class="proj-card-tag">Core Web Vitals</span>
+          </div>
+        </div>
+      </div>
+      <div class="acc-wrap" id="react-more">
+        <div class="acc-grid">
+          <div class="acc-card">
+            <div class="acc-card-name">ASICS</div>
+            <div class="acc-card-stack">React · Next.js</div>
+            <a href="https://www.asics.com/" target="_blank" class="acc-card-link">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+              asics.com
+            </a>
+          </div>
+          <div class="acc-card">
+            <div class="acc-card-name">Internal Resource Tool</div>
+            <div class="acc-card-stack">Vue.js</div>
+          </div>
+        </div>
+      </div>
+      <button class="acc-toggle" id="btn-react-more" onclick="accToggle('react-more','btn-react-more','+2 more projects')">
+        <span class="acc-toggle-icon">+</span>
+        <span class="acc-toggle-label">+2 more projects</span>
+      </button>
+    </div>
+
+    <!-- Magento 2 -->
+    <div class="proj-panel" id="panel-magento">
+      <div class="proj-cards cols-3">
+        <div class="proj-card">
+          <div class="tl-badge">
+            <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            Tech Lead
+          </div>
+          <div class="proj-card-top">
+            <span class="proj-card-label">Built from scratch</span>
+            <a href="https://pilot.opalpackagingplus.com/" target="_blank" class="proj-card-link">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+            </a>
+          </div>
+          <div class="proj-card-name">Opal Packaging</div>
+          <p class="proj-card-desc">Involved as FE Tech Lead. Built M2-based B2B store from scratch. Scoped tasks, managed the frontend team, and owned architecture decisions throughout the project.</p>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag accent-tag">Magento 2</span>
+            <span class="proj-card-tag">Hyvä</span>
+            <span class="proj-card-tag">Tech Lead</span>
+            <span class="proj-card-tag">Team Management</span>
+          </div>
+        </div>
+        <div class="proj-card">
+          <div class="tl-badge">
+            <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            Tech Lead
+          </div>
+          <div class="proj-card-top">
+            <span class="proj-card-label">Multi-store · a11y</span>
+            <a href="https://www.blundstone.com/" target="_blank" class="proj-card-link">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+            </a>
+          </div>
+          <div class="proj-card-name">Blundstone</div>
+          <p class="proj-card-desc">FE Tech Lead on a Magento 2 multi-store build from scratch for the iconic Australian boot brand. Implemented full accessibility compliance across all store views and markets.</p>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag accent-tag">Magento 2</span>
+            <span class="proj-card-tag">Multi-store</span>
+            <span class="proj-card-tag accent-tag">WCAG / a11y</span>
+            <span class="proj-card-tag">Hyvä</span>
+          </div>
+        </div>
+        <div class="proj-card">
+          <div class="proj-card-top">
+            <span class="proj-card-label">Custom UI · 3rd party</span>
+            <a href="https://www.globewest.com.au/" target="_blank" class="proj-card-link">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+            </a>
+          </div>
+          <div class="proj-card-name">GlobeWest</div>
+          <p class="proj-card-desc">Implemented custom My Account functionality using UI components fetching data from a third-party service. Australian premium furniture brand — complex data integration on the frontend layer.</p>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag accent-tag">Magento 2</span>
+            <span class="proj-card-tag">React</span>
+            <span class="proj-card-tag">REST API</span>
+            <span class="proj-card-tag">3rd party integration</span>
+          </div>
+        </div>
+      </div>
+      <div class="acc-wrap" id="m2-more">
+        <div class="acc-grid">
+          <div class="acc-card">
+            <div class="acc-card-name">Sistema Plastics</div>
+            <div class="acc-card-stack">Magento 2</div>
+            <a href="https://www.sistemaplastics.com/au" target="_blank" class="acc-card-link">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+              sistemaplastics.com
+            </a>
+          </div>
+          <div class="acc-card">
+            <div class="acc-card-name">Sunbeam</div>
+            <div class="acc-card-stack">Magento 2</div>
+            <a href="https://www.sunbeam.com.au/" target="_blank" class="acc-card-link">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+              sunbeam.com.au
+            </a>
+          </div>
+          <div class="acc-card">
+            <div class="acc-card-name">Signet</div>
+            <div class="acc-card-stack">Magento 2</div>
+            <a href="https://www.signet.net.au/" target="_blank" class="acc-card-link">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+              signet.net.au
+            </a>
+          </div>
+          <div class="acc-card">
+            <div class="acc-card-name">Stihl</div>
+            <div class="acc-card-stack">Magento 2</div>
+            <a href="https://shop.stihl.com.au/" target="_blank" class="acc-card-link">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+              shop.stihl.com.au
+            </a>
+          </div>
+          <div class="acc-card">
+            <div class="acc-card-name">Beacon Lighting</div>
+            <div class="acc-card-stack">Magento 2</div>
+            <a href="https://www.beaconlighting.com.au/" target="_blank" class="acc-card-link">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+              beaconlighting.com.au
+            </a>
+          </div>
+          <div class="acc-card">
+            <div class="acc-card-name">Barkers</div>
+            <div class="acc-card-stack">Magento 2</div>
+            <a href="https://www.barkersonline.co.nz/" target="_blank" class="acc-card-link">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+              barkersonline.co.nz
+            </a>
+          </div>
+          <div class="acc-card">
+            <div class="acc-card-name">Animates</div>
+            <div class="acc-card-stack">Magento 2</div>
+            <a href="https://www.animates.co.nz/" target="_blank" class="acc-card-link">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+              animates.co.nz
+            </a>
+          </div>
+          <div class="acc-card">
+            <div class="acc-card-name">The Whisky Club</div>
+            <div class="acc-card-stack">Magento 2</div>
+            <a href="https://thewhiskyclub.com.au/" target="_blank" class="acc-card-link">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+              thewhiskyclub.com.au
+            </a>
+          </div>
+        </div>
+      </div>
+      <button class="acc-toggle" id="btn-m2-more" onclick="accToggle('m2-more','btn-m2-more','+8 more projects')">
+        <span class="acc-toggle-icon">+</span>
+        <span class="acc-toggle-label">+8 more projects</span>
+      </button>
+    </div>
+
+    <!-- Shopify -->
+    <div class="proj-panel" id="panel-shopify">
+      <div class="proj-cards cols-2">
+        <div class="proj-card">
+          <div class="proj-card-top">
+            <span class="proj-card-label">Liquid · UI components</span>
+            <a href="https://scotch-soda.com.au/" target="_blank" class="proj-card-link">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+            </a>
+          </div>
+          <div class="proj-card-name">Scotch &amp; Soda</div>
+          <p class="proj-card-desc">Shopify theme customization for the international fashion brand's Australian store. Modified Liquid templates and implemented responsive UI components based on design requirements.</p>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag accent-tag">Shopify</span>
+            <span class="proj-card-tag accent-tag">Liquid</span>
+            <span class="proj-card-tag">JavaScript</span>
+            <span class="proj-card-tag">SCSS</span>
+          </div>
+        </div>
+        <div class="proj-card">
+          <div class="proj-card-top">
+            <span class="proj-card-label">Theme · storefront dev</span>
+            <a href="https://youandallfashion.com/" target="_blank" class="proj-card-link">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+            </a>
+          </div>
+          <div class="proj-card-name">You and All Fashion</div>
+          <p class="proj-card-desc">Customized Shopify theme sections and implemented frontend components using Liquid, HTML, CSS, and JavaScript. Contributed to the full storefront development cycle.</p>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag accent-tag">Shopify</span>
+            <span class="proj-card-tag accent-tag">Liquid</span>
+            <span class="proj-card-tag">HTML / CSS</span>
+            <span class="proj-card-tag">JavaScript</span>
+          </div>
+        </div>
+        <div class="proj-card">
+          <div class="proj-card-top">
+            <span class="proj-card-label">Theme customization</span>
+            <a href="https://www.max.co.nz/" target="_blank" class="proj-card-link">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+            </a>
+          </div>
+          <div class="proj-card-name">Max Fashion</div>
+          <p class="proj-card-desc">UI improvements and Shopify theme customization for the New Zealand fashion retailer. Adapted existing Liquid templates and frontend components to match evolving business requirements.</p>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag accent-tag">Shopify</span>
+            <span class="proj-card-tag">Liquid</span>
+            <span class="proj-card-tag">JavaScript</span>
+          </div>
+        </div>
+        <div class="proj-card">
+          <div class="proj-card-top">
+            <span class="proj-card-label">Brand · UX refinement</span>
+            <a href="https://ninewest.com/" target="_blank" class="proj-card-link">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+            </a>
+          </div>
+          <div class="proj-card-name">Nine West</div>
+          <p class="proj-card-desc">Customized and maintained existing Shopify theme, refining Liquid templates and frontend components to align with brand requirements and improve overall user experience.</p>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag accent-tag">Shopify</span>
+            <span class="proj-card-tag">Liquid</span>
+            <span class="proj-card-tag">SCSS</span>
+            <span class="proj-card-tag">Brand implementation</span>
+          </div>
+        </div>
+      </div>
+      <div class="acc-wrap" id="shopify-more">
+        <div class="acc-grid">
+          <div class="acc-card">
+            <div class="acc-card-name">Ally Fashion</div>
+            <div class="acc-card-stack">Shopify · Liquid</div>
+            <a href="https://allyfashion.com/" target="_blank" class="acc-card-link">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+              allyfashion.com
+            </a>
+          </div>
+          <div class="acc-card">
+            <div class="acc-card-name">Bendon Lingerie</div>
+            <div class="acc-card-stack">Shopify · Liquid</div>
+            <a href="https://www.bendonlingerie.com.au/" target="_blank" class="acc-card-link">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+              bendonlingerie.com.au
+            </a>
+          </div>
+          <div class="acc-card">
+            <div class="acc-card-name">Camera Pro</div>
+            <div class="acc-card-stack">Shopify · Liquid</div>
+            <a href="https://www.camerapro.com.au/" target="_blank" class="acc-card-link">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+              camerapro.com.au
+            </a>
+          </div>
+        </div>
+      </div>
+      <button class="acc-toggle" id="btn-shopify-more" onclick="accToggle('shopify-more','btn-shopify-more','+3 more projects')">
+        <span class="acc-toggle-icon">+</span>
+        <span class="acc-toggle-label">+3 more projects</span>
+      </button>
+    </div>
+
+    <!-- Vue / Nuxt -->
+    <div class="proj-panel" id="panel-vue">
+      <div class="proj-cards cols-2">
+        <div class="proj-card">
+          <div class="proj-card-top">
+            <span class="proj-card-label">Headless CMS · Vue/Nuxt</span>
+            <a href="https://www.generatewealth.co.nz/" target="_blank" class="proj-card-link">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+            </a>
+          </div>
+          <div class="proj-card-name">Generate Wealth / Advice Online</div>
+          <p class="proj-card-desc">Built a headless CMS-driven frontend for a New Zealand financial services platform using Vue/Nuxt and Hygraph as the content layer. Enabled editorial teams to manage content independently from the frontend stack.</p>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag accent-tag">Vue.js</span>
+            <span class="proj-card-tag accent-tag">Nuxt.js</span>
+            <span class="proj-card-tag accent-tag">Hygraph</span>
+            <span class="proj-card-tag">GraphQL</span>
+            <span class="proj-card-tag">Headless CMS</span>
+          </div>
+        </div>
+        <div class="proj-card">
+          <div class="proj-card-top">
+            <span class="proj-card-label">Internal tooling</span>
+          </div>
+          <div class="proj-card-name">Internal Resource Management Tool</div>
+          <p class="proj-card-desc">Built an internal resource management tool using Vue.js — enabling the team to track and manage project staffing, capacity, and allocation. Focused on clean UI and practical UX for day-to-day team operations.</p>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag accent-tag">Vue.js</span>
+            <span class="proj-card-tag">REST API</span>
+            <span class="proj-card-tag">Internal tooling</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ EXPERIENCE ═══ -->
+<section id="experience">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Experience</div>
+      <h2 class="section-title">Where I've worked</h2>
+    </div>
+    <div class="exp-list">
+      <div class="exp-item reveal">
+        <div>
+          <div class="exp-date">Jan 2020 – Dec 2025</div>
+          <div class="exp-company">Overdose</div>
+        </div>
+        <div>
+          <div class="exp-role">React / Magento 2 Frontend Developer<span class="exp-tl">Tech Lead</span></div>
+          <ul class="exp-bullets">
+            <li>Led frontend architecture for headless eCommerce projects: decoupled Magento 2 via <strong>GraphQL</strong>, rebuilt UI in <strong>React + Next.js</strong> with SSR/ISR.</li>
+            <li>Acted as <strong>Frontend Tech Lead</strong> — owned architecture decisions, scoped tasks, ran code reviews, managed delivery across the frontend team.</li>
+            <li>Built Magento 2 multi-store setups from scratch with full <strong>WCAG/a11y</strong> compliance using the <strong>Hyvä</strong> theme stack.</li>
+            <li>Delivered <strong>Shopify</strong> storefront customizations: Liquid themes, Storefront API, custom UI components.</li>
+            <li>Built headless CMS frontends with <strong>Vue.js / Nuxt.js</strong> + Hygraph; contributed to feature dev and UI improvements.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="exp-item reveal">
+        <div>
+          <div class="exp-date">Jul 2018 – Dec 2019</div>
+          <div class="exp-company">IT Delight</div>
+        </div>
+        <div>
+          <div class="exp-role">Magento 2 Frontend Developer</div>
+          <ul class="exp-bullets">
+            <li>Implemented custom <strong>Magento 2</strong> themes and UI components for Triboo / Born and Frendino.</li>
+            <li>Developed checkout customizations and CMS page layouts tailored to client requirements.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="exp-item reveal">
+        <div>
+          <div class="exp-date">Nov 2017 – Jun 2018</div>
+          <div class="exp-company">SAM Solutions</div>
+        </div>
+        <div>
+          <div class="exp-role">Magento 1 &amp; 2 Frontend Developer</div>
+          <ul class="exp-bullets">
+            <li>Collaborated with international teams (Ewave, Blue Badger) on <strong>WCAG-compliant</strong> Magento redesigns.</li>
+            <li>Delivered pixel-perfect responsive themes from Figma/PSD; led code reviews and performance optimizations.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="exp-item reveal">
+        <div>
+          <div class="exp-date">Jul 2014 – Sep 2017</div>
+          <div class="exp-company">MagePhobia · Maven · SkyWell</div>
+        </div>
+        <div>
+          <div class="exp-role">Magento 1 &amp; 2 Frontend Developer</div>
+          <ul class="exp-bullets">
+            <li>Built 60+ Magento storefronts from approved designs: custom themes, modules, mobile optimization, performance improvements.</li>
+            <li>Responsive / adaptive development with the Magento UI Library; cross-device compatibility across all client projects.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ CONTACT ═══ -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-inner reveal">
+      <div class="section-label">Contact</div>
+      <h2 class="section-title">Let's work together</h2>
+      <p>Open to Senior Frontend or Tech Lead roles in headless eCommerce, React / Next.js, or Shopify ecosystems. Remote-friendly. Happy to jump on a call and discuss your stack.</p>
+      <div class="contact-actions">
+        <a href="mailto:suhoviy.eugene@gmail.com" class="btn-primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          suhoviy.eugene@gmail.com
+        </a>
+        <a href="https://t.me/eugenesuhoviy" target="_blank" class="btn-ghost">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+          Telegram
+        </a>
+        <a href="https://linkedin.com/in/eugenesuhoviy" target="_blank" class="btn-ghost">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-text">© 2026 Eugene Suhoviy</span>
+  <span class="footer-text">Senior Frontend Engineer · Kyiv, Ukraine</span>
 </footer>
 
+<script>
+  // ── SVG logo hover animation
+  function playLogoAnim() {
+    const svg = document.querySelector('.logo-bracket-svg');
+    if (!svg) return;
+    svg.classList.remove('animate');
+    void svg.offsetWidth;
+    svg.classList.add('animate');
+  }
+  playLogoAnim();
+  document.getElementById('nav-logo-el').addEventListener('mouseenter', playLogoAnim);
 
+
+  // ── Nav scroll
+  const navEl = document.getElementById('nav');
+  window.addEventListener('scroll', () => navEl.classList.toggle('scrolled', window.scrollY > 40), { passive: true });
+
+  // ── Reveal on scroll
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+  // ── Count-up on stats
+  function countUp(el, target, duration) {
+    let startTime = null;
+    const numEl = el.querySelector('.n');
+    function step(ts) {
+      if (!startTime) startTime = ts;
+      const progress = Math.min((ts - startTime) / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      numEl.textContent = Math.floor(ease * target);
+      if (progress < 1) requestAnimationFrame(step);
+      else numEl.textContent = target;
+    }
+    requestAnimationFrame(step);
+  }
+  const statsObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        countUp(e.target, parseInt(e.target.dataset.count), 1400);
+        statsObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.stat-num[data-count]').forEach(el => statsObs.observe(el));
+
+  // ── Project tabs
+  document.querySelectorAll('.proj-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.proj-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.proj-panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      const panel = document.getElementById('panel-' + tab.dataset.panel);
+      if (panel) {
+        panel.classList.add('active');
+        panel.querySelectorAll('.proj-card').forEach((card, i) => {
+          card.style.opacity = '0'; card.style.transform = 'translateY(20px)';
+          setTimeout(() => {
+            card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+            card.style.opacity = '1'; card.style.transform = 'none';
+          }, i * 70);
+        });
+      }
+    });
+  });
+
+  // ── Accordion toggle
+  function accToggle(moreId, btnId, label) {
+    const wrap = document.getElementById(moreId);
+    const btn  = document.getElementById(btnId);
+    const isOpen = wrap.classList.toggle('open');
+    btn.classList.toggle('open', isOpen);
+    btn.querySelector('.acc-toggle-label').textContent = isOpen ? 'Show less' : label;
+  }
+</script>
 </body>
 </html>
-
-
